@@ -1,11 +1,14 @@
 import { useState } from "react";
+import styles from "./Login.module.scss";
 
 const Login = () => {
   const initialState = {
     email: "",
     password: "",
   };
+
   const [formData, setFormData] = useState(initialState);
+  const [errors, setErrors] = useState({});
   const { email, password } = formData;
 
   const handleChange = (e) => {
@@ -14,11 +17,36 @@ const Login = () => {
       ...prevState,
       [name]: value,
     }));
-    console.log(`Field: ${name}, Value: ${value}`);
   };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!email.trim()) {
+      newErrors.email = "El correo electrónico es obligatorio.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "El correo electrónico no es válido.";
+    }
+    if (!password.trim()) {
+      newErrors.password = "La contraseña es obligatoria.";
+    }
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      setErrors({});
+      console.log("Formulario enviado:", formData);
+     
+    }
+  };
+
   return (
-    <>
-      <form>
+    <div className={styles.form}>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           name="email"
@@ -26,6 +54,7 @@ const Login = () => {
           onChange={handleChange}
           placeholder="Correo electrónico"
         />
+        {errors.email && <p className={styles.error}>{errors.email}</p>}
         <input
           type="password"
           name="password"
@@ -33,8 +62,10 @@ const Login = () => {
           onChange={handleChange}
           placeholder="Contraseña"
         />
+        {errors.password && <p className={styles.error}>{errors.password}</p>}
+        <button type="submit">Iniciar sesión</button>
       </form>
-    </>
+    </div>
   );
 };
 
