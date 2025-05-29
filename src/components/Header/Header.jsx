@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
+import logo from "../../../public/imagen-app.png"; 
 
 const Header = () => {
   return (
     <header className={styles.header}>
-      <h1>Check Mate</h1>
+      <div className={styles.logoContainer}>
+        <img src={logo} alt="Check Mate Logo" className={styles.logo} />
+      </div>
       <nav className={styles.nav}>
         <Link to="/">Tareas</Link>
         <Link to="/Login">Login</Link>
