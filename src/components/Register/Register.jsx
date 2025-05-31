@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styles from "./Register.module.scss";
-
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../features/auth/authSlice";
 const Register = () => {
   const initialState = {
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -11,7 +12,8 @@ const Register = () => {
 
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
-  const { name, email, password, confirmPassword } = formData;
+  const { username, email, password, confirmPassword } = formData;
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +25,7 @@ const Register = () => {
 
   const validate = () => {
     const newErrors = {};
-    if (!name.trim()) newErrors.name = "El nombre de usuario es obligatorio.";
+    if (!username.trim()) newErrors.name = "El nombre de usuario es obligatorio.";
     if (!email.trim()) {
       newErrors.email = "El correo electrónico es obligatorio.";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -44,6 +46,7 @@ const Register = () => {
     } else {
       setErrors({});
       console.log("Formulario enviado:", formData);
+      dispatch(registerUser(formData));
     }
   };
 
@@ -52,8 +55,8 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
-          value={name}
+          name="username"
+          value={username}
           onChange={handleChange}
           placeholder="Nombre de usuario"
         />

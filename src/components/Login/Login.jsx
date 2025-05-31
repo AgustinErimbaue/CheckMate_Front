@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./Login.module.scss";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/auth/authSlice";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const initialState = {
@@ -43,6 +44,7 @@ const Login = () => {
       setErrors({});
       console.log("Formulario enviado:", formData);
       dispatch(loginUser(formData));
+      Navigate('/')
     }
   };
 
