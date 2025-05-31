@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "./Login.module.scss";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/auth/authSlice";
 
 const Login = () => {
   const initialState = {
@@ -10,7 +12,7 @@ const Login = () => {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const { email, password } = formData;
-
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -40,7 +42,7 @@ const Login = () => {
     } else {
       setErrors({});
       console.log("Formulario enviado:", formData);
-     
+      dispatch(loginUser(formData));
     }
   };
 

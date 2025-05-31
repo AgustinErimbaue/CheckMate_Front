@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/users";
+const API_URL = "http://localhost:8080/user";
 
 const register = async (user) => {
   const response = await axios.post(API_URL, user);
@@ -14,6 +14,7 @@ const login = async (user) =>{
         localStorage.setItem("token", respose.data.token);
     }
     return respose.data;
+    
 }
 const authService = {
   register,

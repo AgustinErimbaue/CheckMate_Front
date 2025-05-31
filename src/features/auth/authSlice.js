@@ -18,6 +18,18 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (user) => {
+    try {
+      return await authService.login(user);
+    } catch (error) {
+      console.error("Error during login:", error);
+      throw new Error("Login failed");
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: incialState,
@@ -26,7 +38,35 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = "";
     },
+    
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.user = null;
+        state.token = "";
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.token = action.payload.token;
+      })
+      .addCase(loginUser.rejected, (state) => {
+        state.user = null;
+        state.token = "";
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.user = null;
+        state.token = "";
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.token = action.payload.token;
+      })
+      .addCase(registerUser.rejected, (state) => {
+        state.user = null;
+        state.token = "";
+      });
+  }
 });
 
 export default authSlice.reducer;
