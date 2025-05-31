@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "./Task.module.scss";
+import { useDispatch } from "react-redux";
+import { createTask } from "../../features/task/taskSlice";
 const Task = () => {
   const initialState = {
     title: "",
@@ -8,6 +10,7 @@ const Task = () => {
   };
   const [formData, setFormData] = useState(initialState);
   const { title, description, status } = formData;
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +22,7 @@ const Task = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    dispatch(createTask(formData));
     setFormData(initialState);
   };
 
