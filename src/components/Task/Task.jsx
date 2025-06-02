@@ -21,6 +21,7 @@ const Task = () => {
   const { title, description, status } = formData;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -43,6 +44,7 @@ const Task = () => {
     await dispatch(createTask(formData));
     dispatch(getTasksUser());
     setFormData(initialState);
+    setShowForm(false);
   };
 
   const handleStatusChange = async (task, newStatus) => {
@@ -54,49 +56,74 @@ const Task = () => {
 
   return (
     <div className={styles.form}>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={handleChange}
-          placeholder="Task Title"
-          className={styles.input}
-        />
-        <textarea
-          name="description"
-          value={description}
-          onChange={handleChange}
-          placeholder="Task Description"
-          className={styles.textarea}
-        />
-        <select
-          name="status"
-          value={status}
-          onChange={handleChange}
-          className={styles.select}
-        >
-          <option value="pending">Pending</option>
-          <option value="in-progress">In Progress</option>
-          <option value="completed">Completed</option>
-        </select>
-        <button type="submit" className={styles.button}>
-          Add Task
-        </button>
-      </form>
+      <button
+        className={styles.button}
+        style={{ marginBottom: "1rem" }}
+        onClick={() => setShowForm((prev) => !prev)}
+        type="button"
+      >
+        {showForm ? "Hide form" : "Add new task"}
+      </button>
+
+      {showForm && (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={handleChange}
+            placeholder="Task Title"
+            className={styles.input}
+          />
+          <textarea
+            name="description"
+            value={description}
+            onChange={handleChange}
+            placeholder="Task Description"
+            className={styles.textarea}
+          />
+          <select
+            name="status"
+            value={status}
+            onChange={handleChange}
+            className={styles.select}
+          >
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+          <button type="submit" className={styles.button}>
+            Add Task
+          </button>
+        </form>
+      )}
 
       <div style={{ marginTop: "2rem" }}>
-        <h2>Tus tareas</h2>
+        <h2 className={styles.tasksTitle}>Tus tareas</h2>
         {tasks && tasks.length > 0 ? (
-          <ul>
+          <ul className={styles.tasksList}>
             {tasks.map((task) => (
-              <li key={task._id || task.id}>
-                <strong>{task.title}</strong> - {task.description}{" "}
-                <span>({task.status})</span>
+              <li
+                key={task._id || task.id}
+                className={
+                  `${styles.taskItem} ` +
+                  (task.status === "pending"
+                    ? styles.taskPending
+                    : task.status === "in-progress"
+                    ? styles.taskInProgress
+                    : styles.taskCompleted)
+                }
+              >
+                <div className={styles.taskInfo}>
+                  <strong>{task.title}</strong> - {task.description}{" "}
+                  <span>
+                    ({task.status})
+                  </span>
+                </div>
                 <select
                   value={task.status}
                   onChange={(e) => handleStatusChange(task, e.target.value)}
-                  style={{ marginLeft: "1rem" }}
+                  className={styles.taskStatus}
                 >
                   <option value="pending">Pending</option>
                   <option value="in-progress">In Progress</option>

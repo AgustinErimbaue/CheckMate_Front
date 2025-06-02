@@ -9,9 +9,9 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/Task" element={<Task />} />
+          <Route path="/task" element={<Task />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </>

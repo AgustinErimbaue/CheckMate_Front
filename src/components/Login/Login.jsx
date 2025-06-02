@@ -46,7 +46,7 @@ const Login = () => {
       setErrors({});
       const resultAction = await dispatch(loginUser(formData));
       if (loginUser.fulfilled.match(resultAction)) {
-        navigate("/Task");
+        navigate("/task");
       }
     }
   };

@@ -23,11 +23,11 @@ const Header = () => {
         {!user ? (
           <>
             <Link to="/login">Iniciar Sesión</Link>
-            <Link to="/Register">Registrarse</Link>
+            <Link to="/register">Registrarse</Link>
           </>
         ) : (
           <>
-            <Link to="/Task">Tareas</Link>
+            <Link to="/task">Tareas</Link>
             <button onClick={handleLogout} className={styles.logoutBtn}>
               Cerrar Sesión
             </button>
