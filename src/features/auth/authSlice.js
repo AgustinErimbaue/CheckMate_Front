@@ -1,34 +1,43 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 
+const user = JSON.parse(localStorage.getItem("user"));
+const token = localStorage.getItem("token");
+
 const incialState = {
-  user: null,
-  token: "",
+  user: user || null,
+  token: token || "",
 };
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (user) => {
     try {
-        return await authService.register(user);
+      return await authService.register(user);
     } catch (error) {
-        console.error("Error during registration:", error);
-        throw new Error("Registration failed");
+      console.error("Error during registration:", error);
+      throw new Error("Registration failed");
     }
   }
 );
 
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (user) => {
-    try {
-      return await authService.login(user);
-    } catch (error) {
-      console.error("Error during login:", error);
-      throw new Error("Login failed");
-    }
+export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
+  try {
+    return await authService.login(user);
+  } catch (error) {
+    console.error("Error during login:", error);
+    throw new Error("Login failed");
   }
-);
+});
+
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
+  try {
+    return await authService.logout();
+  } catch (error) {
+    console.error("Error during logout:", error);
+    throw new Error("Logout failed");
+  }
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -38,7 +47,6 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = "";
     },
-    
   },
   extraReducers: (builder) => {
     builder
@@ -65,8 +73,22 @@ export const authSlice = createSlice({
       .addCase(registerUser.rejected, (state) => {
         state.user = null;
         state.token = "";
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.user = null;
+        state.token = "";
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.token = "";
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+      })
+      .addCase(logoutUser.rejected, (state) => {
+        state.user = null;
+        state.token = "";
       });
-  }
+  },
 });
 
 export default authSlice.reducer;

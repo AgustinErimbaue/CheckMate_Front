@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Login from "./components/Login/Login";
@@ -10,8 +9,8 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Task />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Task" element={<Task />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
         </Routes>
       </BrowserRouter>
