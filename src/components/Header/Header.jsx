@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 import logo from "../../assets/imagen-app.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,10 +7,13 @@ import { logoutUser } from "../../features/auth/authSlice";
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    navigate("/login"); 
   };
+
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
@@ -25,9 +28,9 @@ const Header = () => {
         ) : (
           <>
             <Link to="/Task">Tareas</Link>
-            <Link to="/login" onClick={handleLogout}>
-              Cerrar Sesion
-            </Link>
+            <button onClick={handleLogout} className={styles.logoutBtn}>
+              Cerrar Sesión
+            </button>
           </>
         )}
       </nav>

@@ -45,8 +45,8 @@ const Task = () => {
     setFormData(initialState);
   };
 
-  const handleStatusChange = (task, newStatus) => {
-    dispatch(
+  const handleStatusChange = async (task, newStatus) => {
+    await dispatch(
       updateTask({ taskId: task._id, task: { ...task, status: newStatus } })
     );
     dispatch(getTasksUser());

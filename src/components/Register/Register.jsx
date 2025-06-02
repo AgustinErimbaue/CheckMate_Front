@@ -2,6 +2,8 @@ import { useState } from "react";
 import styles from "./Register.module.scss";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const initialState = {
     username: "",
@@ -14,6 +16,7 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const { username, email, password, confirmPassword } = formData;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +49,11 @@ const Register = () => {
     } else {
       setErrors({});
       console.log("Formulario enviado:", formData);
-      dispatch(registerUser(formData));
+      dispatch(registerUser(formData)).then((action) => {
+        if (registerUser.fulfilled.match(action)) {
+          navigate("/login");
+        }
+      });
     }
   };
 
