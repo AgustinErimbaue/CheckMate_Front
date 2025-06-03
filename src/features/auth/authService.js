@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/user";
+const API_URL = "https://checkmate-back.onrender.com/user";
 
 const register = async (user) => {
   const response = await axios.post(`${API_URL}/create`, user);

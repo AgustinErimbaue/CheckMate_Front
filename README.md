@@ -1,12 +1,70 @@
-# React + Vite
+CheckMate-app 📝
+CheckMate-app es una aplicación web de gestión de tareas (To-Do) desarrollada con React, Redux Toolkit y un backend Node.js/Express. Permite a los usuarios registrarse, iniciar sesión, crear, actualizar y visualizar tareas personales de manera sencilla y moderna.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Características
+Registro y login de usuarios con autenticación JWT.
+Creación, edición y visualización de tareas personales.
+Actualización del estado de cada tarea: pendiente, en progreso o completada.
+Interfaz moderna y responsiva.
+Protección de rutas: solo usuarios autenticados pueden ver sus tareas.
+Persistencia de sesión con localStorage.
+Estilos personalizados con SCSS Modules.
+🖥️ Tecnologías utilizadas
+Frontend: React, Redux Toolkit, React Router, SCSS Modules
+Backend: Node.js, Express, MongoDB (API: checkmate-back.onrender.com)
+Autenticación: JWT
 
-Currently, two official plugins are available:
+⚙️ Instalación y ejecución
+Clona el repositorio:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+git clone https://github.com/tuusuario/CheckMate-app.git
+cd CheckMate-app
 
-## Expanding the ESLint configuration
+Instala las dependencias:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+npm install
+
+Configura el backend:
+
+El proyecto está configurado para usar el backend desplegado en Render.
+Si quieres usar tu propio backend, cambia la variable API_URL en los archivos de servicios (authService.js, taskService.js).
+
+Inicia la aplicación:
+npm run dev
+o
+npm start
+
+Abre en tu navegador: 
+http://localhost:5173
+
+(o el puerto que indique la terminal)
+
+📂 Estructura principal
+
+src/
+  components/
+    Header/
+    Login/
+    Register/
+    Task/
+  features/
+    auth/
+      authSlice.js
+      authService.js
+    task/
+      taskSlice.js
+      taskService.js
+  App.jsx
+✨ Prueba la app en línea
+
+[¡Haz clic aquí para ver CheckMate-app en Vercel!](check-mate-front.vercel.app)
+
+
+
+📝 Notas
+Puedes personalizar los colores y estilos en los archivos .module.scss.
+Si tienes problemas con la autenticación, limpia el localStorage del navegador.
+El backend debe estar corriendo y accesible para que la app funcione correctamente.
+
+
+¡Gracias por usar CheckMate-app! ✅

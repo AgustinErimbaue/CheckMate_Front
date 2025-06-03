@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/task";
+const API_URL = "https://checkmate-back.onrender.com/task";
 
 const createTask = async (task) => {
   try {
