@@ -57,7 +57,7 @@ src/
   App.jsx
 ✨ Prueba la app en línea
 
-[¡Haz clic aquí para ver CheckMate-app en Vercel!](check-mate-front.vercel.app)
+[¡Haz clic aquí para ver CheckMate-app en Vercel!](https://check-mate-front.vercel.app/)
 
 
 
