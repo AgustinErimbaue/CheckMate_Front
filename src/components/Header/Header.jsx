@@ -6,6 +6,7 @@ import { logoutUser } from "../../features/auth/authSlice";
 
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
+  console.log("User in Header:", user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
